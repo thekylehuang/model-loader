@@ -50,9 +50,3 @@ cmake --build --preset conan-release
 ```
 
 An executable file should show up in the build/ directory.
-```
-```
-```
-```
-```
-```
