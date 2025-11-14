@@ -1,0 +1,15 @@
+# CMake files
+CMakeUserPresets.json
+*.cmake
+
+# Build directory
+build/
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sln
+*.vcxproj*
+*.user
+*.suo
+*.DS_Store
