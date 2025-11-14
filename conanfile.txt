@@ -2,6 +2,7 @@
 fmt/12.1.0
 glfw/3.4
 bgfx/cci.20230216
+imgui/1.92.4
 
 [generators]
 CMakeDeps
