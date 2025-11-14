@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fmt/core.h>
 #include <bx/bx.h>
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
@@ -13,8 +14,8 @@
 #endif
 
 #include <GLFW/glfw3native.h>
-#define WIN_WIDTH 800
-#define WIN_HEIGHT 500
+#define WIN_WIDTH 1280 
+#define WIN_HEIGHT 720 
 
 static void glfw_errorCallback(int error, const char *description)
 {
@@ -35,6 +36,7 @@ int main(int argc, char **argv)
 	bgfx::renderFrame();
 	
 	bgfx::Init init;
+
 #if BX_PLATFORM_LINUX || BX_PLATFORM_BSD
 	init.platformData.ndt = glfwGetX11Display();
 	init.platformData.nwh = (void*)(uintptr_t)glfwGetX11Window(window);
@@ -50,6 +52,9 @@ int main(int argc, char **argv)
 	init.resolution.reset = BGFX_RESET_VSYNC;
 	if (!bgfx::init(init))
 		return 1;
+
+  bgfx::RendererType::Enum renderer = bgfx::getRendererType();
+  fmt::print("Using the {} graphics API.\n", bgfx::getRendererName(renderer));
 	
 	const bgfx::ViewId kClearView = 0;
 	bgfx::setViewClear(kClearView, BGFX_CLEAR_COLOR);
@@ -61,6 +66,8 @@ int main(int argc, char **argv)
 		int oldWidth = width, oldHeight = height;
 		glfwGetWindowSize(window, &width, &height);
 		if (width != oldWidth || height != oldHeight) {
+      fmt::print("Window resized. {} x {}\n", width, height);
+
 			bgfx::reset((uint32_t)width, (uint32_t)height, BGFX_RESET_VSYNC);
 			bgfx::setViewRect(kClearView, 0, 0, bgfx::BackbufferRatio::Equal);
 		}
